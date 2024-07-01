@@ -33,5 +33,5 @@ MenuHandler:
 return
 
 OnSyncWithUpstream:
-    SyncWithUpstream(ProjectDir, "https://github.com/langchain-ai/langchain.git")
+    SyncWithUpstream(ProjectDir, "https://github.com/langchain-ai/langchain.git", "master")
 return
