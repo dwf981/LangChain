@@ -28,6 +28,8 @@ from langchain_community.document_loaders.parsers.language.typescript import (
     TypeScriptSegmenter,
 )
 
+from langchain_community.document_loaders.parsers.language.autohotkey import AutoHotkeySegmenter
+
 LANGUAGE_EXTENSIONS: Dict[str, str] = {
     "py": "python",
     "js": "js",
@@ -47,6 +49,7 @@ LANGUAGE_EXTENSIONS: Dict[str, str] = {
     "php": "php",
     "ex": "elixir",
     "exs": "elixir",
+    "ahk": "autohotkey",
 }
 
 LANGUAGE_SEGMENTERS: Dict[str, Any] = {
@@ -67,6 +70,7 @@ LANGUAGE_SEGMENTERS: Dict[str, Any] = {
     "java": JavaSegmenter,
     "php": PHPSegmenter,
     "elixir": ElixirSegmenter,
+    "autohotkey": AutoHotkeySegmenter,
 }
 
 Language = Literal[
@@ -94,6 +98,7 @@ Language = Literal[
     "lua",
     "perl",
     "elixir",
+    "autohotkey",
 ]
 
 
