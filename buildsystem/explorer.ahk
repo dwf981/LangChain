@@ -1,24 +1,18 @@
+#Requires AutoHotkey v2.0
 #SingleInstance Off
-#NoTrayIcon
-#Include <AuxLib>
+#Warn All, OutputDebug
 
-    AuxLibLoad( "default" )
+#Include <Explorer>
 
-    AddMenuItemEditor("ProjectMenu")
-    AddMenu( "ProjectMenu" )
-    AddMenu( "ProjectMenu", "&README.md...`tR", "OnReadme", BrowserPath )
-    AddMenu( "ProjectMenu" )
-    AddMenu( "ProjectMenu", "&Sync with Upstream`tS", "OnSyncWithUpstream", ConEmuPath )
-    AddMenu( "ProjectMenu" )
-    AddMenuItemEditProjectMenu("ProjectMenu")
-    ShowMenu( "ProjectMenu" )
-    ExitApp
-return ; end of script's auto-execute section
+ProjectMenu() {
+    items := ProjectMenu_Editor(false)
+    items.Push("-", ProjectMenu_Readme(), "-")
+    items.Push({ text: "&Sync with Upstream`tS", id: "OnSyncWithUpstream", run: OnSyncWithUpstream, icon: "@ConEmuPath" })
+    items.Push("-")
+    items.Push(ProjectMenu_EditMenu()*)
+    return items
+}
 
-MenuHandler:
-    MsgBox % "MenuHandler was called."
-return
+OnSyncWithUpstream() => SyncWithUpstream(Explorer2_ProjectDir(), "https://github.com/langchain-ai/langchain.git", "master")
 
-OnSyncWithUpstream:
-    SyncWithUpstream(ProjectDir, "https://github.com/langchain-ai/langchain.git", "master")
-return
+Explorer2_Main(ProjectMenu)
